@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_prize_prizes",
+  "info": {
+    "displayName": "Prize",
+    "icon": "gift"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Quantity": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}
