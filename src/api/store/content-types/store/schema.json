@@ -25,6 +25,16 @@
       "required": true,
       "unique": true
     },
+    "Check_PIN": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "12345",
+      "required": true
+    },
     "Store_Name": {
       "type": "string",
       "pluginOptions": {
