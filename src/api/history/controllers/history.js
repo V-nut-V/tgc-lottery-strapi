@@ -4,9 +4,16 @@ const { Parser } = require("json2csv");
 const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::history.history", ({ strapi }) => ({
-  // 保留默认 CRUD，同时加上导出逻辑
+  // 保留默认 CRUD，同时加入导出逻辑
   async export(ctx) {
-    const { start, end, store, sort = "desc" } = ctx.query;
+    const {
+      start,
+      end,
+      store,
+      exclude,
+      sort = "desc",
+      limit = 99999,
+    } = ctx.query;
 
     const filters = {};
     if (start || end) {
@@ -15,8 +22,14 @@ module.exports = createCoreController("api::history.history", ({ strapi }) => ({
       if (end) filters.Create_Date["$lte"] = new Date(end);
     }
 
-    if (store) {
-      filters.Store_ID = store;
+    // ✅ 排除多个 store（优先）
+    if (exclude) {
+      const excludeList = exclude.split(",").map((s) => s.trim());
+      filters.Store_ID = { $nin: excludeList };
+    } else if (store) {
+      // ✅ 包含多个 store
+      const storeList = store.split(",").map((s) => s.trim());
+      filters.Store_ID = { $in: storeList };
     }
 
     const entries = await strapi.entityService.findMany(
@@ -32,7 +45,7 @@ module.exports = createCoreController("api::history.history", ({ strapi }) => ({
         ],
         filters,
         sort: [{ Create_Date: sort }],
-        limit: 9999,
+        limit: parseInt(limit),
       }
     );
 
