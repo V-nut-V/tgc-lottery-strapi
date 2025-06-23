@@ -123,6 +123,7 @@ coverage
 
 .env
 .env.dev
+.env.lottery-test
 license.txt
 exports
 .strapi

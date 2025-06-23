@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "default": "Product Name",
+      "required": true
+    },
+    "SKU": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Date": {
+      "type": "date"
+    },
+    "Image_URL": {
+      "type": "string"
+    },
+    "Video_URL": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    }
+  }
+}
